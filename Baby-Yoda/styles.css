@@ -1,0 +1,99 @@
+/* Define variáveis de cores para reutilização */
+:root {
+    --green: #87CA81;       /* Verde principal */
+    --green-light: #A0D6A1; /* Verde claro (não usado no código atual) */
+    --pink: #D08791;        /* Rosa para as orelhas */
+}
+
+/* Configuração básica do HTML */
+html {
+    height: 100%;           /* Garante que o HTML ocupe toda a altura da tela */
+    display: flex;          /* Ativa Flexbox para centralização */
+    background: linear-gradient(to bottom right, #DDE8E2AA, #DDD9C5AA); /* Fundo gradiente */
+}
+
+/* Centraliza o conteúdo no corpo da página */
+body {
+    margin: auto;           /* Centraliza horizontal e verticalmente */
+}
+
+/* Estilização do Baby Yoda */
+.baby-yoda {
+    width: 6em;
+    height: 4em;
+    border-radius: 3em 3em 4.5em 4.5em; /* Bordas arredondadas (mais na parte inferior) */
+    background: var(--green);            /* Cor de fundo verde */
+    position: relative;                  /* Permite posicionar pseudo-elementos (orelhas) */
+
+    /* Cria os olhos usando gradientes radiais */
+    background-image:
+        /* Olho branco */
+        radial-gradient(
+            circle at 1.5em,  /* Posição do círculo */
+            #fff,             /* Cor branca */
+            #fff .25em,       /* Mantém branco até 0.25em */
+            transparent .3em  /* Torna transparente depois */
+        ),
+        /* Pupila preta */
+        radial-gradient(
+            circle at 1.1em,  /* Posição ajustada para parecer que está olhando */
+            #000,
+            #000 .9em,
+            transparent .1em
+        );
+
+    /* Posiciona os olhos */
+    background-position: 0.6em 0.35em, 0.7em 0.6em;
+    background-size: 2.75em 2em;        /* Tamanho dos olhos */
+    background-repeat: repeat-x;        /* Evita repetição */
+    animation: eyes 2s cubic-bezier(.8, .02, .2, .96) infinite alternate; /* Animação dos olhos */
+}
+
+/* Animação dos olhos (piscar) */
+@keyframes eyes {
+    to {
+        background-size: 2.8em 1.5em;  /* Olhos ficam mais estreitos (fechando) */
+    }
+}
+
+/* Estilização das orelhas (::before e ::after) */
+.baby-yoda::before, 
+.baby-yoda::after {
+    content: '';
+    display: block;
+    width: 5em;
+    height: 1.5em;
+    background: var(--pink);            /* Cor rosa */
+    border-top: solid .5em var(--green); /* Borda verde para parecer conectada à cabeça */
+    position: absolute;                /* Posicionamento absoluto em relação ao Baby Yoda */
+    top: 0.5em;
+    margin: 0 -1em;                    /* Ajusta posição horizontal */
+    z-index: -10;                      /* Coloca atrás da cabeça */
+    border-radius: 2em 1em;            /* Bordas arredondadas */
+    animation: ears 2s cubic-bezier(.8, .02, .2, .96) infinite alternate; /* Animação das orelhas */
+}
+
+/* Orelha esquerda */
+.baby-yoda::before {
+    --rotate: 20deg;                  /* Define rotação (variável CSS) */
+    transform-origin: center right;    /* Ponto de rotação (centro-direita) */
+    right: 100%;                      /* Posiciona à esquerda do Baby Yoda */
+    border-bottom-left-radius: 9em 4em; /* Borda arredondada assimétrica */
+}
+
+/* Orelha direita */
+.baby-yoda::after {
+    --rotate: -20deg;                 /* Rota para o lado oposto */
+    transform-origin: center left;    /* Ponto de rotação (centro-esquerda) */
+    left: 100%;                      /* Posiciona à direita do Baby Yoda */
+    border-bottom-right-radius: 9em 4em; /* Borda arredondada assimétrica */
+}
+
+/* Animação das orelhas (balanço) */
+@keyframes ears {
+    to {
+        transform: rotate(var(--rotate)); /* Aplica rotação definida nas variáveis */
+    }
+}
+
+/*Preciso colocar uma boca kkk*/
